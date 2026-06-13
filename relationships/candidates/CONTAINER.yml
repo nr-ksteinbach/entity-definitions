@@ -10,10 +10,14 @@ lookups:
           field: containerId
     onMatch:
      onMultipleMatches: RELATE_ALL
+    # Avoid spawning placeholder "uninstrumented" CONTAINER entities for every
+    # OTel container.id that doesn't yet have a corresponding infra-agent /
+    # OTel-synthesized CONTAINER. This mirrors the convention used in
+    # KUBERNETES_POD.yml. Without NO_OP, every miss in the relationship-approver
+    # path produces an entity, which can explode entity counts for OTel-only
+    # workloads emitting ephemeral / sidecar / init container telemetry.
     onMiss:
-      action: CREATE_UNINSTRUMENTED
-      uninstrumented:
-        type: CONTAINER
+      action: NO_OP
   - entityTypes:
       - domain: INFRA
         type: CONTAINER
@@ -31,6 +35,4 @@ lookups:
     onMatch:
       onMultipleMatches: RELATE_ALL
     onMiss:
-      action: CREATE_UNINSTRUMENTED
-      uninstrumented:
-        type: CONTAINER
+      action: NO_OP
