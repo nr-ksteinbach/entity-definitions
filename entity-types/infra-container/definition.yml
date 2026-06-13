@@ -34,6 +34,11 @@ synthesis:
       cloud.region:
       host.id:
       host.name:
+      # Expose container.id as a tag so the CONTAINER candidate
+      # (relationships/candidates/CONTAINER.yml) can look this entity up
+      # via the docker.containerId tag predicate.
+      container.id:
+        entityTagName: docker.containerId
       # The library name contains the name of the receiver that is used to identify the source
       # and select the dashboard.
       otel.library.name:
@@ -67,6 +72,11 @@ synthesis:
       cloud.region:
       host.id:
       host.name:
+      # Expose container.id as a tag so the CONTAINER candidate
+      # (relationships/candidates/CONTAINER.yml) can look this entity up
+      # via the docker.containerId tag predicate.
+      container.id:
+        entityTagName: docker.containerId
       # The library name contains the name of the receiver that is used to identify the source
       # and select the dashboard.
       otel.library.name:
@@ -96,7 +106,12 @@ synthesis:
       cloud.account.id:
       cloud.region:
       host.id:
-      host.name: 
+      host.name:
+      # Expose container.id as a tag so the CONTAINER candidate
+      # (relationships/candidates/CONTAINER.yml) can look this entity up
+      # via the docker.containerId tag predicate.
+      container.id:
+        entityTagName: docker.containerId
 
   # AWS ECS container metrics via OpenTelemetry awsecscontainermetricsreceiver
   - ruleName: infra_container_otel_ecs
@@ -125,6 +140,11 @@ synthesis:
       container.image.tag:
       container.name:
         entityTagName: docker.name
+      # Expose container.id as a tag so the CONTAINER candidate
+      # (relationships/candidates/CONTAINER.yml) can look this entity up
+      # via the docker.containerId tag predicate.
+      container.id:
+        entityTagName: docker.containerId
       # AWS ECS attributes
       aws.ecs.cluster.name:
         entityTagName: docker.ecsClusterName
